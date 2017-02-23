@@ -1,0 +1,21 @@
+version: '2'
+services:
+  php-fpm:
+    image: php:5.6-fpm
+    volumes:
+      - E:/docker/multisite/www/:/var/www  
+  nginx:
+    image: nginx
+    volumes:
+      - E:/docker/multisite/nginx/conf.d/:/etc/nginx/conf.d
+      - E:/docker/multisite/www/home/:/var/www/home
+    ports:
+      - "80:80"
+      - "443:443"
+  web1:
+    image: nginx
+    volumes:
+      - E:/docker/multisite/web1/conf.d/:/etc/nginx/conf.d
+      - E:/docker/multisite/www/web1/:/var/www/web1
+    links:
+      - php-fpm
